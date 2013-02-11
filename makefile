@@ -51,11 +51,11 @@ VPATH = $(DSRC) $(DOBJ) $(DMOD)
 ifeq "$(SHARED)" "yes"
   DLIB    = ./shared/
   MAIN    = $(DLIB)libVTK_IO.so
-  MAKELIB = $(FC) $(OPTSL) $(DOBJ)lib_vtk_io.o -o $(MAIN)
+  MAKELIB = $(FC) $(OPTSL) $(DOBJ)lib_vtk_io.o $(DOBJ)ir_precision.o -o $(MAIN)
 else
   DLIB    = ./static/
   MAIN    = $(DLIB)libVTK_IO.a
-  MAKELIB = ar -rcs $(MAIN) $(DOBJ)lib_vtk_io.o ; ranlib $(MAIN)
+  MAKELIB = ar -rcs $(MAIN) $(DOBJ)lib_vtk_io.o $(DOBJ)ir_precision.o ; ranlib $(MAIN)
 endif
 MKDIRS = $(DOBJ) $(DMOD) $(DLIB)
 #----------------------------------------------------------------------------------------------------------------------------------
