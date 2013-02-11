@@ -50,11 +50,11 @@ DMOD  = ./mod/
 VPATH = $(DSRC) $(DOBJ) $(DMOD)
 ifeq "$(SHARED)" "yes"
   DLIB    = ./shared/
-  MAIN    = $(DLIB)Lib_VTK_IO.so
+  MAIN    = $(DLIB)libVTK_IO.so
   MAKELIB = $(FC) $(OPTSL) $(DOBJ)lib_vtk_io.o -o $(MAIN)
 else
   DLIB    = ./static/
-  MAIN    = $(DLIB)Lib_VTK_IO.a
+  MAIN    = $(DLIB)libVTK_IO.a
   MAKELIB = ar -rcs $(MAIN) $(DOBJ)lib_vtk_io.o ; ranlib $(MAIN)
 endif
 MKDIRS = $(DOBJ) $(DMOD) $(DLIB)
