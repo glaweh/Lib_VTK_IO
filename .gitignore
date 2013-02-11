@@ -1,0 +1,6 @@
+diagnostic_messages
+error_messages
+make.log
+mod/
+obj/
+static/
