@@ -92,8 +92,8 @@ integer, parameter:: I_P  = I4P                   !< Default integer precision.
 #ifdef r16p
 character(10), parameter:: FR16P = '(E42.33E4)' !< Output format for kind=R16P variable.
 #endif
-character(10), parameter:: FR8P  = '(E23.15E3)' !< Output format for kind=R8P variable.
-character(9),  parameter:: FR4P  = '(E13.6E2)'  !< Output format for kind=R4P variable.
+character(10), parameter:: FR8P  = '(E24.15E3)' !< Output format for kind=R8P variable.
+character(9),  parameter:: FR4P  = '(E14.6E2)'  !< Output format for kind=R4P variable.
 character(10), parameter:: FR_P  = FR8P         !< Output format for kind=R_P variable.
 ! Real number of digits of output formats:
 #ifdef r16p
