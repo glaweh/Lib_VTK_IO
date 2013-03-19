@@ -223,12 +223,12 @@ LITEXT  = -e "\033[1;31m Linking library\033[0m\033[1m $@\033[0m"
 
 $(DOBJ)ir_precision.o : IR_Precision.f90
 	@echo $(COTEXT) | tee -a make.log
-	@$(FC) $(OPTSC) $< -o $@ 1>> diagnostic_messages 2>> error_messages
+	@$(FC) $(OPTSC) $< -o $@ # 1>> diagnostic_messages 2>> error_messages
 
 $(DOBJ)lib_vtk_io.o : Lib_VTK_IO.f90 \
 	$(DOBJ)ir_precision.o
 	@echo $(COTEXT) | tee -a make.log
-	@$(FC) $(OPTSC) $< -o $@ 1>> diagnostic_messages 2>> error_messages
+	@$(FC) $(OPTSC) $< -o $@ # 1>> diagnostic_messages 2>> error_messages
 
 VTK_IO : PRINTINFO $(MKDIRS) $(DOBJ)ir_precision.o $(DOBJ)lib_vtk_io.o
 	@echo $(LITEXT) | tee -a make.log
