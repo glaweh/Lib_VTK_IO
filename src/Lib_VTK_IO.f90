@@ -424,12 +424,12 @@ character(len=maxlen)::   topology                   !< Mesh topology.
 integer(I4P)::            Unit_VTK                   !< Internal logical unit.
 integer(I4P)::            Unit_VTK_Append            !< Internal logical unit for raw binary XML append file.
 integer(I8P)::            N_Byte                     !< Number of byte to be written/read.
-real(R8P)::               Tipo_R8 = 1._R8P           !< Prototype of R8P real.
-real(R4P)::               Tipo_R4 = 1._R4P           !< Prototype of R4P real.
-integer(I8P)::            Tipo_I8 = 1_I8P            !< Prototype of I8P integer.
-integer(I4P)::            Tipo_I4 = 1_I4P            !< Prototype of I4P integer.
-integer(I2P)::            Tipo_I2 = 1_I2P            !< Prototype of I2P integer.
-integer(I1P)::            Tipo_I1 = 1_I1P            !< Prototype of I1P integer.
+real(R8P),    parameter:: Tipo_R8 = 1._R8P           !< Prototype of R8P real.
+real(R4P),    parameter:: Tipo_R4 = 1._R4P           !< Prototype of R4P real.
+integer(I8P), parameter:: Tipo_I8 = 1_I8P            !< Prototype of I8P integer.
+integer(I4P), parameter:: Tipo_I4 = 1_I4P            !< Prototype of I4P integer.
+integer(I2P), parameter:: Tipo_I2 = 1_I2P            !< Prototype of I2P integer.
+integer(I1P), parameter:: Tipo_I1 = 1_I1P            !< Prototype of I1P integer.
 integer(I8P)::            ioffset                    !< Offset pointer.
 integer(I4P)::            indent                     !< Indent pointer.
 integer(I4P)::            Unit_VTM                   !< Internal logical unit.
