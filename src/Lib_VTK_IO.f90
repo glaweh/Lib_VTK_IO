@@ -161,6 +161,8 @@ public:: VTM_INI_XML
 public:: VTM_BLK_XML
 public:: VTM_WRF_XML
 public:: VTM_END_XML
+! datatype
+public:: vtk_descriptor
 !-----------------------------------------------------------------------------------------------------------------------------------
 
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -419,22 +421,27 @@ integer(I4P), parameter:: maxlen       = 500         !< Max number of characters
 character(1), parameter:: end_rec      = char(10)    !< End-character for binary-record finalize.
 integer(I4P), parameter:: f_out_ascii  = 0           !< Ascii-output-format parameter identifier.
 integer(I4P), parameter:: f_out_binary = 1           !< Binary-output-format parameter identifier.
-integer(I4P)::            f_out        = f_out_ascii !< Current output-format (initialized to ascii format).
-character(len=maxlen)::   topology                   !< Mesh topology.
-integer(I4P)::            Unit_VTK                   !< Internal logical unit.
-integer(I4P)::            Unit_VTK_Append            !< Internal logical unit for raw binary XML append file.
-integer(I8P)::            N_Byte                     !< Number of byte to be written/read.
 real(R8P),    parameter:: Tipo_R8 = 1._R8P           !< Prototype of R8P real.
 real(R4P),    parameter:: Tipo_R4 = 1._R4P           !< Prototype of R4P real.
 integer(I8P), parameter:: Tipo_I8 = 1_I8P            !< Prototype of I8P integer.
 integer(I4P), parameter:: Tipo_I4 = 1_I4P            !< Prototype of I4P integer.
 integer(I2P), parameter:: Tipo_I2 = 1_I2P            !< Prototype of I2P integer.
 integer(I1P), parameter:: Tipo_I1 = 1_I1P            !< Prototype of I1P integer.
-integer(I8P)::            ioffset                    !< Offset pointer.
-integer(I4P)::            indent                     !< Indent pointer.
-integer(I4P)::            Unit_VTM                   !< Internal logical unit.
-integer(I4P)::            blk                        !< Block index.
-integer(I4P)::            vtm_indent                 !< Indent pointer.
+
+TYPE vtk_descriptor
+  integer(I4P)::            f_out        = f_out_ascii !< Current output-format (initialized to ascii format).
+  character(len=maxlen)::   topology                   !< Mesh topology.
+  integer(I4P)::            Unit_VTK                   !< Internal logical unit.
+  integer(I4P)::            Unit_VTK_Append            !< Internal logical unit for raw binary XML append file.
+  integer(I8P)::            N_Byte                     !< Number of byte to be written/read.
+  integer(I8P)::            ioffset                    !< Offset pointer.
+  integer(I4P)::            indent                     !< Indent pointer.
+  integer(I4P)::            Unit_VTM                   !< Internal logical unit.
+  integer(I4P)::            blk                        !< Block index.
+  integer(I4P)::            vtm_indent                 !< Indent pointer.
+ENDTYPE vtk_descriptor
+
+TYPE(vtk_descriptor), TARGET :: vtk_default_desc
 !> @}
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
@@ -510,17 +517,19 @@ contains
   !> ... @endcode
   !> @return E_IO: integer(I4P) error flag
   !> @ingroup Lib_VTK_IOPublicProcedure
-  function VTK_INI(output_format,filename,title,mesh_topology) result(E_IO)
+  function VTK_INI(output_format,filename,title,mesh_topology,vtk_desc) result(E_IO)
   !---------------------------------------------------------------------------------------------------------------------------------
   implicit none
   character(*), intent(IN):: output_format !< Output format: ASCII or BINARY.
   character(*), intent(IN):: filename      !< Name of file.
   character(*), intent(IN):: title         !< Title.
   character(*), intent(IN):: mesh_topology !< Mesh topology.
+  type(vtk_descriptor), pointer, optional:: vtk_desc
   integer(I4P)::             E_IO          !< Input/Output inquiring flag: $0$ if IO is done, $> 0$ if IO is not done.
   !---------------------------------------------------------------------------------------------------------------------------------
 
   !---------------------------------------------------------------------------------------------------------------------------------
+  if (.not. present(vtk_desc)) vtk_desc => vtk_default_desc
   topology = trim(mesh_topology)
   Unit_VTK=GetUnit()
   select case(trim(Upper_Case(output_format)))
